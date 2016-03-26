@@ -42,6 +42,10 @@ module VagrantPlugins
           args = " #{args.join(" ")}"
         end
 
+        if Vagrant::Util::Platform.windows? && path.end_with?(".sh")
+          return system("sh #{path}#{args}")
+        end
+
         execute!("#{path}#{args}")
       end
 
